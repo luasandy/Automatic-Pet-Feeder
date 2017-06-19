@@ -33,13 +33,14 @@ if porcion == 3:
 
 while True:
       hora_sys = time.strftime("%H:%M")
-      #comando = raw_input('Introduce un comando: ') #Input
-      #arduino.write(comando) #Mandar un comando hacia Arduino
-      if hora_sys == horarios[0]:
-            arduino.write("H") #Mandar un comando hacia Arduino
-            print porcion
-            print "hora"
-            
+      for horarios_comp in horarios:     #Compara los horarios con la hora actual
+            if hora_sys == horarios_comp:
+                  arduino.write("H") #Mandar un comando hacia Arduino
+                  print porcion
+                  print "hora"
+                  time.sleep(60)
+      
+      arduino.write("L") #solo para debug      
       time.sleep(0.1)
       print hora_sys
       while arduino.inWaiting() > 0:
