@@ -35,9 +35,10 @@ while True:
       hora_sys = time.strftime("%H:%M")
       #comando = raw_input('Introduce un comando: ') #Input
       #arduino.write(comando) #Mandar un comando hacia Arduino
-      if hora_sys == "20:46":
+      if hora_sys == horarios[0]:
             arduino.write("H") #Mandar un comando hacia Arduino
-            print ("hora")
+            print porcion
+            print "hora"
             
       time.sleep(0.1)
       print hora_sys
