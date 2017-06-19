@@ -8,11 +8,22 @@ int led = 13;
 void loop() {
   if (Serial.available()) { //Si está disponible
       char c = Serial.read(); //Guardamos la lectura en una variable char
-      if (c == 'H') { //Si es una 'H', enciendo el LED
+      if (c == '1') { //Si recibe 1 significa que sera una porcion Chica
          digitalWrite(led, HIGH);
-      } else if (c == 'L') { //Si es una 'L', apago el LED
-         digitalWrite(led, LOW);
-         Serial.print("0");
+         delay(1000);
+         digitalWrite(led, LOW); //se apaga el led
+      } else if (c == '2') { //Si es 2 significa que sera una porcion Mediana
+         digitalWrite(led, HIGH);
+         Serial.print("8");   //mandar por serial debug
+         delay(2000);
+         digitalWrite(led, LOW); //se apaga el led
+      } else if (c == '3') { //Si es 2 significa que sera una porcion Mediana
+         digitalWrite(led, HIGH);
+         Serial.print("9");   //mandar por serial debug
+         delay(3000);
+         digitalWrite(led, LOW); //se apaga el led
+      } else{
+        digitalWrite(led, LOW); //se apaga el led
       }      
    }
 }
