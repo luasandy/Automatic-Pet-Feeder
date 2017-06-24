@@ -1,5 +1,6 @@
 import serial
 import time
+import push
 
 arduino = serial.Serial('/dev/ttyUSB0', 9600) #ttyUSB0 para arduino nano , ttyACMo para arduino uno
 arduino.open
@@ -35,16 +36,18 @@ while True:
       hora_sys = time.strftime("%H:%M")
       for horarios_comp in horarios:     #Compara los horarios con la hora actual
             if hora_sys == horarios_comp:
-                  arduino.write("H") #Mandar un comando hacia Arduino
-                  print porcion
-                  print "hora"
+                  arduino.write(str(porcion)) #Mandar un comando hacia Arduino
                   time.sleep(60)
       
-      arduino.write("L") #solo para debug      
+      #arduino.write("L") #solo para debug      
       time.sleep(0.1)
       print hora_sys
       while arduino.inWaiting() > 0:
             txt = arduino.read(1)
+            if txt == "9":
+                  push.sendNotification("8969e7c6b9d30c765ab2dea18fbed44a244a880d", "pet-feeder", "Hola! Tu perrito tiene poca comida :( ")
+            if txt == "8":
+                  push.sendNotification("8969e7c6b9d30c765ab2dea18fbed44a244a880d", "pet-feeder", "Hola! Tu perrito ya tiene comida :) ")
             print txt
             txt = ''
 arduino.close() #Finalizamos la comunicacion
